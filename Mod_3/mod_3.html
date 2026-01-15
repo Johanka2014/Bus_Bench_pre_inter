@@ -195,6 +195,98 @@
         .rotate-180 {
             transform: rotate(180deg);
         }
+        /* Flip card styles for grammar */
+        .grammar-card {
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .grammar-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .grammar-card:hover .grammar-card-inner {
+            transform: rotateY(180deg);
+        }
+        .grammar-card-front, .grammar-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .grammar-card-back {
+            transform: rotateY(180deg);
+            background-color: #eff6ff;
+            border: 2px solid #3b82f6;
+        }
+        
+        /* Specific styles for Question Builder Cards (Slide 10) */
+        .q-card {
+            perspective: 1000px;
+            cursor: pointer;
+            height: 160px;
+        }
+        .q-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 0.75rem;
+        }
+        .q-card:hover .q-card-inner {
+            transform: rotateX(180deg);
+        }
+        .q-card-front, .q-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .q-card-front {
+            background-color: white;
+            border: 2px solid #e2e8f0;
+        }
+        .q-card-back {
+            transform: rotateX(180deg);
+            background-color: #3b82f6;
+            color: white;
+            border: 2px solid #2563eb;
+        }
+        
+        /* Styles for Fact Finding Activity */
+        .fact-answer {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            font-weight: bold;
+            color: #b91c1c; /* red-700 */
+            margin-left: 0.5rem;
+        }
+        .fact-label.revealed .fact-answer {
+            opacity: 1;
+        }
+        .fact-label {
+            transition: background-color 0.2s;
+        }
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800">
@@ -210,6 +302,9 @@
             <a href="#slide-6"></a>
             <a href="#slide-7"></a>
             <a href="#slide-8"></a>
+            <a href="#slide-9"></a>
+            <a href="#slide-10"></a>
+            <a href="#slide-11"></a>
         </nav>
 
         <!-- Slide 1: Title -->
@@ -274,9 +369,6 @@
                         <div class="drop-zone w-32 h-12 bg-slate-50" data-answer="1976"></div>
                     </div>
                 </div>
-                <div class="mt-8 text-center text-sm text-slate-500 italic">
-                    (Source: Bus Bench Pre-Inter Mod 3)
-                </div>
             </div>
             <a href="#slide-3" class="arrow text-amber-300"><i class="fas fa-chevron-down"></i></a>
         </section>
@@ -288,9 +380,6 @@
                     <h2 class="text-3xl font-bold text-slate-800">Vocabulary: Business Actions</h2>
                     <span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-xs font-bold uppercase">Verb-Noun Collocations</span>
                 </div>
-                
-                <p class="text-slate-600 mb-6 text-left">Match the verbs to the correct nouns to complete the common business phrases.</p>
-                
                 <div class="word-bank bg-emerald-100 border-emerald-200" id="vocab-bank">
                     <div draggable="true" class="draggable word-item text-emerald-900 border-emerald-300" data-word="set up">set up</div>
                     <div draggable="true" class="draggable word-item text-emerald-900 border-emerald-300" data-word="launch">launch</div>
@@ -299,7 +388,6 @@
                     <div draggable="true" class="draggable word-item text-emerald-900 border-emerald-300" data-word="run">run</div>
                     <div draggable="true" class="draggable word-item text-emerald-900 border-emerald-300" data-word="inherit">inherit</div>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-left">
                     <div class="bg-white p-4 rounded-xl border border-emerald-100 shadow-sm flex items-center justify-between">
                         <span class="font-medium text-slate-500 w-1/2">... a business (start)</span>
@@ -330,48 +418,211 @@
             <a href="#slide-4" class="arrow text-emerald-300"><i class="fas fa-chevron-down"></i></a>
         </section>
 
-        <!-- Slide 4: Grammar - Wipro History (Workbook) -->
-        <section id="slide-4" class="slide bg-white">
-            <div class="activity-card">
-                <h2 class="text-3xl font-bold text-slate-800 mb-4 text-left">Grammar: Past Simple</h2>
-                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 text-left">
-                    <h3 class="font-bold text-blue-800">Case Study: Wipro Technologies</h3>
-                    <p class="text-sm text-slate-600">Complete the sentences about Wipro's history using the Past Simple form of the verbs.</p>
-                </div>
+        <!-- Slide 4: Wipro Case Study (Reading) -->
+        <section id="slide-4" class="slide bg-blue-50">
+            <div class="activity-card text-left">
+                <h2 class="text-3xl font-bold text-blue-900 mb-6 font-serif">Case Study: Wipro Technologies</h2>
+                
+                <div class="flex flex-col md:flex-row gap-8">
+                    <!-- Image Column -->
+                    <div class="md:w-1/3 flex flex-col gap-4">
+                        <div class="bg-white p-3 rounded-xl shadow-md border border-blue-100">
+                            <img src="https://johanka2014.github.io/Bus_Bench_pre_inter/Mod_3/wipro.png" alt="Wipro Logo" class="w-full h-auto rounded-lg">
+                            <p class="text-xs text-center text-slate-500 mt-2 font-serif italic">A global IT giant from India</p>
+                        </div>
+                        <div class="bg-blue-100 p-4 rounded-xl border border-blue-200">
+                            <h4 class="font-bold text-blue-800 text-sm mb-2"><i class="fas fa-search mr-2"></i>Reading Tip</h4>
+                            <p class="text-xs text-blue-700">Look for dates (1940s, 1966) and verbs in the past tense (founded, went, returned) as you read.</p>
+                        </div>
+                    </div>
 
-                <div class="word-bank" id="grammar-bank">
-                    <div draggable="true" class="draggable word-item bg-blue-100 text-blue-800 border-blue-200" data-word="ran">ran</div>
-                    <div draggable="true" class="draggable word-item bg-blue-100 text-blue-800 border-blue-200" data-word="made">made</div>
-                    <div draggable="true" class="draggable word-item bg-blue-100 text-blue-800 border-blue-200" data-word="limited">limited</div>
-                    <div draggable="true" class="draggable word-item bg-blue-100 text-blue-800 border-blue-200" data-word="operated">operated</div>
-                    <div draggable="true" class="draggable word-item bg-blue-100 text-blue-800 border-blue-200" data-word="had">had</div>
-                </div>
-
-                <div class="space-y-4 text-left max-w-4xl mx-auto text-lg leading-relaxed">
-                    <div class="p-3 hover:bg-slate-50 rounded transition">
-                        1. Mr M.H. Premji <div class="drop-zone w-32 inline-flex" data-answer="ran"></div> the company in the 1940s and 1950s. (run)
-                    </div>
-                    <div class="p-3 hover:bg-slate-50 rounded transition">
-                        2. In the 1940s, the company <div class="drop-zone w-32 inline-flex" data-answer="made"></div> baby care products. (make)
-                    </div>
-                    <div class="p-3 hover:bg-slate-50 rounded transition">
-                        3. In the 1970s, the government <div class="drop-zone w-32 inline-flex" data-answer="limited"></div> the activity of multinational companies. (limit)
-                    </div>
-                    <div class="p-3 hover:bg-slate-50 rounded transition">
-                        4. During the 1980s, IBM <div class="drop-zone w-32 inline-flex" data-answer="operated"></div> in India. (operate)
-                    </div>
-                    <div class="p-3 hover:bg-slate-50 rounded transition">
-                        5. In the 1980s, Wipro <div class="drop-zone w-32 inline-flex" data-answer="had"></div> customers in the USA. (have)
+                    <!-- Text Column -->
+                    <div class="md:w-2/3 bg-white p-6 rounded-xl border-l-4 border-blue-600 shadow-sm h-96 overflow-y-auto custom-scrollbar">
+                        <p class="text-slate-700 leading-relaxed mb-4">
+                            Wipro is one of India's biggest software and electronics companies. Its customer list includes Sony, Microsoft, and Nokia, and it generally makes a yearly profit of over $200 million. But Wipro is also an example of a company which began as something very different from what it is now.
+                        </p>
+                        <p class="text-slate-700 leading-relaxed mb-4">
+                            Mr. M.H. Premji originally <strong>founded</strong> the company in the 1940s. At that time it <strong>was</strong> called Western India Vegetable Products Ltd and it <strong>manufactured</strong> vegetable oil and soap. Mr Premji's son, Azim Premji, <strong>went</strong> to Stanford University in California to study engineering but he <strong>did not finish</strong> his studies.
+                        </p>
+                        <p class="text-slate-700 leading-relaxed mb-4">
+                            In 1966, following the death of his father, he <strong>returned</strong> to India and <strong>took over</strong> the business. Under Azim Premji the company <strong>began</strong> a programme of expansion and <strong>started</strong> to produce a number of other completely different products. These included lights and baby care products.
+                        </p>
+                        <p class="text-slate-700 leading-relaxed mb-4">
+                            In the 1970s and 1980s the government's economic policies <strong>stopped</strong> many multinational companies from trading in India. Global IT companies like IBM <strong>left</strong> the country and Wipro <strong>moved</strong> into this field. Azim Premji <strong>set up</strong> the first IT business in Bangalore in 1980 and the company soon <strong>expanded</strong> into other IT areas such as system design.
+                        </p>
+                        <p class="text-slate-700 leading-relaxed">
+                            In the 1990s, the government reopened the markets and many multinational companies <strong>returned</strong> to India. At the same time, Wipro <strong>began</strong> working on product engineering for customers in the USA and also <strong>launched</strong> a global IT services division.
+                        </p>
                     </div>
                 </div>
             </div>
-            <a href="#slide-5" class="arrow text-slate-300"><i class="fas fa-chevron-down"></i></a>
+            <a href="#slide-5" class="arrow text-blue-300"><i class="fas fa-chevron-down"></i></a>
         </section>
 
-        <!-- Slide 5: Reading - Hongdou (Sequence) -->
-        <section id="slide-5" class="slide bg-red-50">
+        <!-- Slide 5: Grammar Lab (Past Simple) -->
+        <section id="slide-5" class="slide bg-white">
             <div class="activity-card">
-                <div class="flex flex-col md:flex-row gap-8">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-3xl font-bold text-slate-800">Grammar Lab: The Past Simple</h2>
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">Rules & Patterns</span>
+                </div>
+                
+                <p class="text-slate-600 mb-8 text-center max-w-2xl mx-auto">Hover over the cards to discover the rules for forming the past tense.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    
+                    <!-- Regular Verbs -->
+                    <div class="grammar-card h-64">
+                        <div class="grammar-card-inner">
+                            <div class="grammar-card-front bg-green-50 border-2 border-green-200">
+                                <h3 class="text-xl font-bold text-green-700 mb-2">Regular Verbs</h3>
+                                <p class="text-4xl text-green-500 mb-2"><i class="fas fa-plus"></i> ed</p>
+                                <p class="text-sm text-slate-500">Most verbs</p>
+                            </div>
+                            <div class="grammar-card-back bg-green-100 border-green-400">
+                                <h4 class="font-bold text-green-800 mb-2">Examples</h4>
+                                <ul class="text-left text-sm space-y-2 text-green-900">
+                                    <li>work &rarr; work<strong>ed</strong></li>
+                                    <li>launch &rarr; launch<strong>ed</strong></li>
+                                    <li>expand &rarr; expand<strong>ed</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Spelling Rules -->
+                    <div class="grammar-card h-64">
+                        <div class="grammar-card-inner">
+                            <div class="grammar-card-front bg-purple-50 border-2 border-purple-200">
+                                <h3 class="text-xl font-bold text-purple-700 mb-2">Spelling</h3>
+                                <p class="text-4xl text-purple-500 mb-2"><i class="fas fa-pen-fancy"></i></p>
+                                <p class="text-sm text-slate-500">y &rarr; ied / double consonant</p>
+                            </div>
+                            <div class="grammar-card-back bg-purple-100 border-purple-400">
+                                <h4 class="font-bold text-purple-800 mb-2">Watch out!</h4>
+                                <ul class="text-left text-sm space-y-2 text-purple-900">
+                                    <li>study &rarr; stud<strong>ied</strong> (-y)</li>
+                                    <li>stop &rarr; stop<strong>ped</strong> (CVC)</li>
+                                    <li>move &rarr; move<strong>d</strong> (+d only)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Irregular Verbs -->
+                    <div class="grammar-card h-64">
+                        <div class="grammar-card-inner">
+                            <div class="grammar-card-front bg-orange-50 border-2 border-orange-200">
+                                <h3 class="text-xl font-bold text-orange-700 mb-2">Irregular</h3>
+                                <p class="text-4xl text-orange-500 mb-2"><i class="fas fa-random"></i></p>
+                                <p class="text-sm text-slate-500">They change completely!</p>
+                            </div>
+                            <div class="grammar-card-back bg-orange-100 border-orange-400">
+                                <h4 class="font-bold text-orange-800 mb-2">Memorize these</h4>
+                                <ul class="text-left text-sm space-y-2 text-orange-900">
+                                    <li>go &rarr; <strong>went</strong></li>
+                                    <li>make &rarr; <strong>made</strong></li>
+                                    <li>take &rarr; <strong>took</strong></li>
+                                    <li>leave &rarr; <strong>left</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Negatives -->
+                    <div class="grammar-card h-64">
+                        <div class="grammar-card-inner">
+                            <div class="grammar-card-front bg-red-50 border-2 border-red-200">
+                                <h3 class="text-xl font-bold text-red-700 mb-2">Negatives</h3>
+                                <p class="text-4xl text-red-500 mb-2">didn't</p>
+                                <p class="text-sm text-slate-500">+ Base Verb</p>
+                            </div>
+                            <div class="grammar-card-back bg-red-100 border-red-400">
+                                <h4 class="font-bold text-red-800 mb-2">Examples</h4>
+                                <ul class="text-left text-sm space-y-2 text-red-900">
+                                    <li>He <strong>didn't finish</strong>.</li>
+                                    <li>They <strong>didn't sell</strong> it.</li>
+                                    <li class="italic text-xs mt-2">(NOT didn't finished)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <a href="#slide-6" class="arrow text-slate-300"><i class="fas fa-chevron-down"></i></a>
+        </section>
+
+        <!-- Slide 6: Wipro Practice (Comp & Grammar) -->
+        <section id="slide-6" class="slide bg-blue-50">
+            <div class="activity-card text-left">
+                <h2 class="text-3xl font-bold text-blue-900 mb-4">Wipro: Practice</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Comprehension -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-blue-100">
+                        <h3 class="text-xl font-bold text-blue-800 mb-4 border-b pb-2">Comprehension</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="font-medium text-sm mb-1">1. When did Mr. MH Premji found the company?</p>
+                                <button class="quiz-btn text-sm" onclick="checkQuiz(this, true)">In the 1940s</button>
+                                <button class="quiz-btn text-sm mt-1" onclick="checkQuiz(this, false)">In 1966</button>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm mb-1">2. What did they manufacture originally?</p>
+                                <button class="quiz-btn text-sm" onclick="checkQuiz(this, false)">Computers</button>
+                                <button class="quiz-btn text-sm mt-1" onclick="checkQuiz(this, true)">Vegetable oil & soap</button>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm mb-1">3. Why did Azim Premji return to India in 1966?</p>
+                                <button class="quiz-btn text-sm" onclick="checkQuiz(this, true)">His father died</button>
+                                <button class="quiz-btn text-sm mt-1" onclick="checkQuiz(this, false)">To study engineering</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grammar Gap Fill -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-blue-100">
+                        <h3 class="text-xl font-bold text-blue-800 mb-4 border-b pb-2">Grammar Check</h3>
+                        <p class="text-sm text-slate-500 mb-4">Drag the correct Past Simple verb.</p>
+                        
+                        <div class="word-bank bg-blue-50 border-blue-200 mb-4 p-2 gap-2" id="wipro-grammar-bank">
+                            <div draggable="true" class="draggable word-item text-xs bg-white" data-word="ran">ran</div>
+                            <div draggable="true" class="draggable word-item text-xs bg-white" data-word="made">made</div>
+                            <div draggable="true" class="draggable word-item text-xs bg-white" data-word="limited">limited</div>
+                            <div draggable="true" class="draggable word-item text-xs bg-white" data-word="operated">operated</div>
+                            <div draggable="true" class="draggable word-item text-xs bg-white" data-word="had">had</div>
+                        </div>
+
+                        <div class="space-y-3 text-sm">
+                            <div class="p-2 bg-slate-50 rounded">
+                                1. Mr M.H. Premji <div class="drop-zone w-20 h-8 inline-flex" data-answer="ran"></div> the company in the 40s.
+                            </div>
+                            <div class="p-2 bg-slate-50 rounded">
+                                2. In the 1940s, the company <div class="drop-zone w-20 h-8 inline-flex" data-answer="made"></div> baby care products.
+                            </div>
+                            <div class="p-2 bg-slate-50 rounded">
+                                3. The government <div class="drop-zone w-20 h-8 inline-flex" data-answer="limited"></div> the activity of multinationals.
+                            </div>
+                            <div class="p-2 bg-slate-50 rounded">
+                                4. During the 80s, IBM <div class="drop-zone w-20 h-8 inline-flex" data-answer="operated"></div> in India.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#slide-7" class="arrow text-blue-300"><i class="fas fa-chevron-down"></i></a>
+        </section>
+
+        <!-- Slide 7: Reading - Hongdou (Sequence & Fact Finding) -->
+        <section id="slide-7" class="slide bg-red-50">
+            <div class="activity-card">
+                <!-- Image Tile -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-red-100 mb-8">
+                    <img src="https://johanka2014.github.io/Bus_Bench_pre_inter/Mod_3/hongdou.png" alt="Hongdou Group" class="w-full h-auto rounded-lg">
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-8 mb-8">
                     <div class="md:w-1/3 text-left">
                         <h2 class="text-3xl font-bold text-slate-800 mb-2">Hongdou History</h2>
                         <span class="inline-block bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-bold mb-4">SEQUENCING</span>
@@ -409,12 +660,55 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Fact Finding Activity -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-red-200 text-left">
+                    <h3 class="text-xl font-bold text-red-900 mb-4 border-b border-red-100 pb-2">
+                        <i class="fas fa-search mr-2"></i>Fact Finding
+                    </h3>
+                    <p class="text-slate-600 mb-4 text-sm italic">Click the statement to reveal the answer.</p>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/3">
+                            <img src="https://johanka2014.github.io/Bus_Bench_pre_inter/Mod_3/hongdou_reading.png" alt="Hongdou Text Snippet" class="w-full h-auto rounded-lg shadow-sm border border-slate-200">
+                        </div>
+                        <div class="md:w-2/3">
+                            <p class="text-slate-600 mb-4">Read the text about Hongdou. Which of the following information does each paragraph contain?</p>
+                            <div class="space-y-3">
+                                <div class="fact-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded cursor-pointer hover:bg-red-50 hover:border-red-200 transition-all" onclick="this.classList.toggle('revealed')">
+                                    <div class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-xs"><i class="fas fa-eye"></i></div>
+                                    <span class="text-slate-700">a. The early history of the company</span>
+                                    <span class="fact-answer">(Para 3)</span>
+                                </div>
+                                <div class="fact-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded cursor-pointer hover:bg-red-50 hover:border-red-200 transition-all" onclick="this.classList.toggle('revealed')">
+                                    <div class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-xs"><i class="fas fa-eye"></i></div>
+                                    <span class="text-slate-700">b. The company's markets</span>
+                                    <span class="fact-answer">(Para 5)</span>
+                                </div>
+                                <div class="fact-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded cursor-pointer hover:bg-red-50 hover:border-red-200 transition-all" onclick="this.classList.toggle('revealed')">
+                                    <div class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-xs"><i class="fas fa-eye"></i></div>
+                                    <span class="text-slate-700">c. The company's success</span>
+                                    <span class="fact-answer">(Para 2)</span>
+                                </div>
+                                <div class="fact-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded cursor-pointer hover:bg-red-50 hover:border-red-200 transition-all" onclick="this.classList.toggle('revealed')">
+                                    <div class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-xs"><i class="fas fa-eye"></i></div>
+                                    <span class="text-slate-700">d. The origin of the company's name</span>
+                                    <span class="fact-answer">(Para 1)</span>
+                                </div>
+                                <div class="fact-label flex items-center gap-3 p-3 bg-white border border-slate-200 rounded cursor-pointer hover:bg-red-50 hover:border-red-200 transition-all" onclick="this.classList.toggle('revealed')">
+                                    <div class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-xs"><i class="fas fa-eye"></i></div>
+                                    <span class="text-slate-700">e. The movement away from state ownership</span>
+                                    <span class="fact-answer">(Para 4)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <a href="#slide-6" class="arrow text-red-300"><i class="fas fa-chevron-down"></i></a>
+            <a href="#slide-8" class="arrow text-red-300"><i class="fas fa-chevron-down"></i></a>
         </section>
 
-        <!-- Slide 6: The Story of Levi's (Updated Interactive) -->
-        <section id="slide-6" class="slide bg-blue-50">
+        <!-- Slide 8: The Story of Levi's -->
+        <section id="slide-8" class="slide bg-blue-50">
             <div class="activity-card">
                 <h2 class="text-4xl font-extrabold text-blue-900 mb-8 font-serif">The Story of Levi Strauss & Co.</h2>
                 <p class="text-slate-500 mb-6 italic text-sm">Click on the questions below to reveal the answers.</p>
@@ -470,11 +764,11 @@
                     </div>
                 </div>
             </div>
-            <a href="#slide-7" class="arrow text-blue-300"><i class="fas fa-chevron-down"></i></a>
+            <a href="#slide-9" class="arrow text-blue-300"><i class="fas fa-chevron-down"></i></a>
         </section>
 
-        <!-- Slide 7: Comprehension - Levis (Old Slide 6) -->
-        <section id="slide-7" class="slide bg-indigo-50">
+        <!-- Slide 9: Comprehension - Levis -->
+        <section id="slide-9" class="slide bg-indigo-50">
              <div class="activity-card text-left">
                 <div class="flex justify-between items-end mb-6 border-b border-indigo-200 pb-2">
                     <h2 class="text-3xl font-bold text-slate-800">Reading Check: Levi Strauss</h2>
@@ -524,11 +818,112 @@
                     </div>
                 </div>
             </div>
-            <a href="#slide-8" class="arrow text-indigo-300"><i class="fas fa-chevron-down"></i></a>
+            <a href="#slide-10" class="arrow text-indigo-300"><i class="fas fa-chevron-down"></i></a>
         </section>
 
-        <!-- Slide 8: Timeline - Red Letter Days (Old Slide 7) -->
-        <section id="slide-8" class="slide bg-slate-800 text-white">
+        <!-- Slide 10: Levi Strauss Question Builder (New) -->
+        <section id="slide-10" class="slide bg-blue-100">
+            <div class="activity-card">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold text-slate-800">Levi Strauss: Grammar Challenge</h2>
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">Question Formation</span>
+                </div>
+                
+                <p class="text-slate-600 mb-8 text-center max-w-2xl mx-auto">Read the answer on the card, then hover or click to reveal the correct Past Simple question.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-4">
+                    
+                    <!-- Q2 -->
+                    <div class="q-card">
+                        <div class="q-card-inner">
+                            <div class="q-card-front">
+                                <p class="text-xs uppercase text-slate-400 font-bold mb-2">Answer</p>
+                                <p class="text-lg font-serif italic text-slate-800">"In Bavaria."</p>
+                            </div>
+                            <div class="q-card-back">
+                                <p class="text-xs uppercase text-blue-100 font-bold mb-2">Question</p>
+                                <p class="font-bold">Where was Levi Strauss born?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="q-card">
+                        <div class="q-card-inner">
+                            <div class="q-card-front">
+                                <p class="text-xs uppercase text-slate-400 font-bold mb-2">Answer</p>
+                                <p class="text-lg font-serif italic text-slate-800">"In Battery Street, San Francisco."</p>
+                            </div>
+                            <div class="q-card-back">
+                                <p class="text-xs uppercase text-blue-100 font-bold mb-2">Question</p>
+                                <p class="font-bold">Where did he set up his first business?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="q-card">
+                        <div class="q-card-inner">
+                            <div class="q-card-front">
+                                <p class="text-xs uppercase text-slate-400 font-bold mb-2">Answer</p>
+                                <p class="text-lg font-serif italic text-slate-800">"In 1873."</p>
+                            </div>
+                            <div class="q-card-back">
+                                <p class="text-xs uppercase text-blue-100 font-bold mb-2">Question</p>
+                                <p class="font-bold">When did production begin?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="q-card">
+                        <div class="q-card-inner">
+                            <div class="q-card-front">
+                                <p class="text-xs uppercase text-slate-400 font-bold mb-2">Answer</p>
+                                <p class="text-lg font-serif italic text-slate-800">"In 1960."</p>
+                            </div>
+                            <div class="q-card-back">
+                                <p class="text-xs uppercase text-blue-100 font-bold mb-2">Question</p>
+                                <p class="font-bold">When did they stop using the name 'overalls'?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div class="q-card">
+                        <div class="q-card-inner">
+                            <div class="q-card-front">
+                                <p class="text-xs uppercase text-slate-400 font-bold mb-2">Answer</p>
+                                <p class="text-lg font-serif italic text-slate-800">"In 1966."</p>
+                            </div>
+                            <div class="q-card-back">
+                                <p class="text-xs uppercase text-blue-100 font-bold mb-2">Question</p>
+                                <p class="font-bold">When did they make the first TV commercial?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Q8 -->
+                     <div class="q-card">
+                        <div class="q-card-inner">
+                            <div class="q-card-front">
+                                <p class="text-xs uppercase text-slate-400 font-bold mb-2">Answer</p>
+                                <p class="text-lg font-serif italic text-slate-800">"Because of their strong advertising."</p>
+                            </div>
+                            <div class="q-card-back">
+                                <p class="text-xs uppercase text-blue-100 font-bold mb-2">Question</p>
+                                <p class="font-bold">Why were they so successful?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <a href="#slide-11" class="arrow text-blue-400"><i class="fas fa-chevron-down"></i></a>
+        </section>
+
+        <!-- Slide 11: Timeline - Red Letter Days -->
+        <section id="slide-11" class="slide bg-slate-800 text-white">
             <div class="activity-card bg-slate-700 border-slate-600 text-slate-100">
                 <h2 class="text-3xl font-bold mb-2">Red Letter Days</h2>
                 <p class="text-slate-300 mb-6">Match the year to the correct event in Rachel Elnaugh's career (Workbook).</p>
@@ -570,7 +965,7 @@
     </div>
 
     <script>
-        // --- ACCORDION LOGIC FOR SLIDE 6 ---
+        // --- ACCORDION LOGIC FOR SLIDE 8 ---
         function toggleAccordion(element) {
             const content = element.querySelector('.answer-content');
             const icon = element.querySelector('.fa-chevron-down');
@@ -661,7 +1056,7 @@
             }
         }
 
-        // --- QUIZ LOGIC FOR SLIDE 7 ---
+        // --- QUIZ LOGIC FOR SLIDES 6 & 9 ---
         function checkQuiz(btn, isCorrect) {
             // Find parent container
             const parent = btn.parentElement;
